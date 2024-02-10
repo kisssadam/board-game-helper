@@ -1,6 +1,17 @@
-# BoardGameHelper
+# Board Game Helper
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.2.
+
+# Algorithm
+
+TODO
+
+1. Create Boards based on hosts with 1 Game associated with each board.
+2. Assign hosts to boards, 1 host should be associated with only 1 board.
+   1. If a host table contains > 1 tables per game, 1 game can have host, the rest will have no host.
+3. Sort player groups in decreasing size order. (biggest groups first, then smaller)
+4. Put player groups onto the boards.
+5. Put down rest of the people onto the boards. TODO based on what algorithm?
 
 ## Development server
 
