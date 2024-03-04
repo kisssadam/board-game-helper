@@ -5,6 +5,10 @@ import {PlayerService} from "./player/player.service";
 import {PlayerComponent} from "./player/player.component";
 import {read, WorkBook, WorkSheet} from 'xlsx';
 import {Player} from "./player/player";
+import {HostService} from "./host/host.service";
+import {GuestService} from "./guest/guest.service";
+import {Guest} from "./guest/guest";
+import {Host} from "./host/host";
 
 @Component({
   selector: 'app-root',
@@ -17,7 +21,10 @@ export class AppComponent {
 
   inputFile: File | null = null;
 
-  constructor(private playerService: PlayerService) {
+  constructor(
+    private playerService: PlayerService,
+    private hostService: HostService,
+    private guestService: GuestService) {
   }
 
   onFileSelected(event: any) {
@@ -124,14 +131,12 @@ export class AppComponent {
       });
       console.log("Processing host %o", hostRow);
 
-      // TODO do something with hosts.
-      // this.playerService.addPlayer(hostRow as unknown as Player);
+      this.hostService.addHost(hostRow as unknown as Host);
 
       rowIndex++;
     }
 
-    // TODO do something with hosts.
-    // this.playerService.printPlayers();
+    this.hostService.printHosts();
   }
 
 
@@ -165,14 +170,12 @@ export class AppComponent {
       });
       console.log("Processing guest %o", guestRow);
 
-      // TODO do something with guests.
-      // this.playerService.addPlayer(guestRow as unknown as Player);
+      this.guestService.addGuest(guestRow as unknown as Guest);
 
       rowIndex++;
     }
 
-    // TODO do something with guests.
-    // this.playerService.printPlayers();
+    this.guestService.printGuests();
   }
 
 

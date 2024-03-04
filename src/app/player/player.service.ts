@@ -6,13 +6,17 @@ import {Player} from "./player";
 })
 export class PlayerService {
 
-  players: Array<Player> = [];
+  private players: Array<Player> = [];
 
   constructor() {
   }
 
   addPlayer(player: Player): void {
     this.players.push(player);
+  }
+
+  getPlayers(): Array<Player> {
+    return this.players;
   }
 
   printPlayers(): void {
