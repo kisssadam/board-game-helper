@@ -1,8 +1,6 @@
-<div class="flex-column">
-  <p>Players</p>
+<div class="d-flex flex-column h-100">
+  <ag-grid-angular
+    class="flex-column flex-grow-1 ag-theme-alpine"
+    [gridOptions]="gridOptions">
+  </ag-grid-angular>
 </div>
-
-<ag-grid-angular
-  class="flex-column flex-grow-1 ag-theme-alpine"
-  [gridOptions]="gridOptions">
-</ag-grid-angular>

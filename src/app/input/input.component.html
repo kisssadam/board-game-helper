@@ -1,0 +1,25 @@
+<div class="d-flex flex-column h-100">
+  <div class="row mb-1">
+    <label for="formFile" class="form-label">Upload spreadsheet</label>
+    <div class="input-group">
+      <input class="form-control" type="file" id="formFile" (change)="onFileSelected($event)">
+      <button class="btn btn-primary" type="button" (click)="regenerate()">Regenerate</button>
+    </div>
+  </div>
+  <div class="row">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="player" routerLinkActive="active">Players</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="host" routerLinkActive="active">Hosts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="guest" routerLinkActive="active">Guests</a>
+      </li>
+    </ul>
+  </div>
+  <div class="row flex-grow-1">
+    <router-outlet></router-outlet>
+  </div>
+</div>
