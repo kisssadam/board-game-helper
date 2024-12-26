@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AgGridAngular} from "ag-grid-angular";
-import {GridOptions} from "ag-grid-community";
+import {GridApi, GridOptions, GridReadyEvent} from "ag-grid-community";
 import {Player} from "./player";
+import {PlayerService} from "./player.service";
 
 @Component({
   selector: 'app-player',
@@ -10,26 +11,22 @@ import {Player} from "./player";
   templateUrl: './player.component.html',
   styleUrl: './player.component.scss'
 })
-export class PlayerComponent {
+export class PlayerComponent implements OnInit {
 
   gridOptions: GridOptions<Player> = {
-    // Row Data: The data to be displayed.
-    rowData: [
-      {
-        name: "",
-        preferredGame1: "",
-        preferredGame2: "",
-        preferredGame3: "",
-        playWith: "",
-        bringGuest: false,
-        guestName: "",
-        anyComments: "",
-        itemType: "",
-        path: ""
-      },
-    ],
+    rowData: [{
+      name: "adam",
+      preferredGame1: "",
+      preferredGame2: "",
+      preferredGame3: "",
+      playWith: "",
+      bringGuest: false,
+      guestName: "",
+      anyComments: "",
+      itemType: "",
+      path: ""
+    } as Player],
 
-    // Column Definitions: Defines & controls grid columns.
     columnDefs: [
       {field: "name", headerName: "Name", pinned: 'left', editable: false},
       {field: "preferredGame1", headerName: "Preferred Game 1", editable: false},
@@ -46,6 +43,50 @@ export class PlayerComponent {
     autoSizeStrategy: {
       type: 'fitGridWidth'
     },
+  };
+
+  private gridApi!: GridApi;
+
+  constructor(
+    private playerService: PlayerService
+  ) {
+  }
+
+  ngOnInit(): void {
+    console.log("Player Component ngOnInit()")
+  }
+
+  protected onGridReady(params: GridReadyEvent): void {
+    console.log("Player Component onGridReady()", params);
+    this.gridApi = params.api;
+
+    this.updatePlayerTable();
+  }
+
+  private updatePlayerTable(): void {
+    console.log("Updating player table.")
+
+    const players: Array<Player> = this.playerService.getPlayers();
+    console.log("Initializing players grid with", players);
+
+    for (const player of players) {
+      const playerRowData = {
+        name: player.name,
+        preferredGame1: player.preferredGame1,
+        preferredGame2: player.preferredGame2,
+        preferredGame3: player.preferredGame3,
+        playWith: player.playWith,
+        bringGuest: player.bringGuest,
+        guestName: player.guestName,
+        anyComments: player.anyComments,
+        itemType: player.itemType,
+        path: player.path
+      } as Player
+
+      const currentRowData: Player[] | null | undefined = this.gridOptions.rowData;
+      const newRowData: Player[] = (currentRowData) ? [...currentRowData, playerRowData] : [playerRowData];
+      this.gridApi.setGridOption('rowData', newRowData);
+    }
   }
 
 }
