@@ -80,6 +80,19 @@ export class InputComponent {
       J: 'Path',
     };
 
+    var columnMapToPlayerInterfaceFields: { [index: string]: string } = {
+      'Name': 'name',
+      'Preferred Game 1': 'preferredGame1',
+      'Preferred Game 2': 'preferredGame2',
+      'Preferred Game 3': 'preferredGame3',
+      'Play With': 'playWith',
+      'Bring guest?': 'bringGuest',
+      'Guest Name': 'guestName',
+      'Any comments?': 'anyComments',
+      'Item Type': 'itemType',
+      'Path': 'path'
+    }
+
     // start at the 2nd row - the first row are the headers
     var rowIndex = 2;
 
@@ -90,7 +103,7 @@ export class InputComponent {
 
       Object.keys(columns).forEach((column: string) => {
         const data: any = playersSheet[column + rowIndex]?.w
-        playerRow[columns[column]] = data ? data : "";
+        playerRow[columnMapToPlayerInterfaceFields[columns[column]]] = data ? data : "";
       });
       console.log("Processing player %o", playerRow);
 
