@@ -20,7 +20,7 @@ export class PlayerComponent implements OnInit {
       preferredGame2: "",
       preferredGame3: "",
       playWith: "",
-      bringGuest: false,
+      bringGuest: "",
       guestName: "",
       anyComments: "",
       itemType: "",

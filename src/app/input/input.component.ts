@@ -89,7 +89,8 @@ export class InputComponent {
       var playerRow: { [index: string]: string } = {};
 
       Object.keys(columns).forEach((column: string) => {
-        playerRow[columns[column]] = playersSheet[column + rowIndex]?.w;
+        const data: any = playersSheet[column + rowIndex]?.w
+        playerRow[columns[column]] = data ? data : "";
       });
       console.log("Processing player %o", playerRow);
 
@@ -129,7 +130,8 @@ export class InputComponent {
       var hostRow: { [index: string]: string } = {};
 
       Object.keys(columns).forEach((column: string) => {
-        hostRow[columns[column]] = hostsSheet[column + rowIndex]?.w;
+        const data: any = hostsSheet[column + rowIndex]?.w;
+        hostRow[columns[column]] = data ? data : "";
       });
       console.log("Processing host %o", hostRow);
 
@@ -168,7 +170,8 @@ export class InputComponent {
       var guestRow: { [index: string]: string } = {};
 
       Object.keys(columns).forEach((column: string) => {
-        guestRow[columns[column]] = guestsSheet[column + rowIndex]?.w;
+        const data: any = guestsSheet[column + rowIndex]?.w;
+        guestRow[columns[column]] = data ? data : "";
       });
       console.log("Processing guest %o", guestRow);
 

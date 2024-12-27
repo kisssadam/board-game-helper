@@ -4,7 +4,7 @@ export interface Player {
   preferredGame2: String;
   preferredGame3: String;
   playWith: String;
-  bringGuest: Boolean;
+  bringGuest: String;
   guestName: String;
   anyComments: String;
   itemType: String;
