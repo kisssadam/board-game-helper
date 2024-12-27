@@ -67,27 +67,9 @@ export class PlayerComponent implements OnInit {
     console.log("Updating player table.")
 
     const players: Array<Player> = this.playerService.getPlayers();
-    console.log("Initializing players grid with", players);
+    console.log("Initializing player grid with", players);
 
-    const newRowData: Array<Player> = [];
-
-    for (const player of players) {
-      newRowData.push({
-        name: player.name,
-        preferredGame1: player.preferredGame1,
-        preferredGame2: player.preferredGame2,
-        preferredGame3: player.preferredGame3,
-        playWith: player.playWith,
-        bringGuest: player.bringGuest,
-        guestName: player.guestName,
-        anyComments: player.anyComments,
-        itemType: player.itemType,
-        path: player.path
-      } as Player);
-    }
-
-    this.gridApi.setGridOption('rowData', newRowData);
-    console.log(newRowData);
+    this.gridApi.setGridOption('rowData', players);
   }
 
 }

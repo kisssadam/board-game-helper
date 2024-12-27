@@ -2,7 +2,8 @@
   <div class="row flex-grow-1">
     <ag-grid-angular
       class="flex-column flex-grow-1 ag-theme-alpine"
-      [gridOptions]="gridOptions">
+      [gridOptions]="gridOptions"
+      (gridReady)="onGridReady($event)">
     </ag-grid-angular>
   </div>
 </div>

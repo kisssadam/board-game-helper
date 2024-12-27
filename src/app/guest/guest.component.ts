@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
-import {GridOptions} from "ag-grid-community";
+import {Component, OnInit} from '@angular/core';
+import {GridApi, GridOptions, GridReadyEvent} from "ag-grid-community";
 import {Guest} from "./guest";
 import {AgGridAngular} from "ag-grid-angular";
+import {GuestService} from "./guest.service";
 
 @Component({
   selector: 'app-guest',
@@ -12,7 +13,7 @@ import {AgGridAngular} from "ag-grid-angular";
   templateUrl: './guest.component.html',
   styleUrl: './guest.component.scss'
 })
-export class GuestComponent {
+export class GuestComponent implements OnInit {
 
   gridOptions: GridOptions<Guest> = {
     // Row Data: The data to be displayed.
@@ -48,6 +49,33 @@ export class GuestComponent {
     autoSizeStrategy: {
       type: 'fitGridWidth'
     },
+  }
+
+  private gridApi!: GridApi;
+
+  constructor(
+    private guestService: GuestService
+  ) {
+  }
+
+  ngOnInit(): void {
+    console.log("Guest Component ngOnInit()")
+  }
+
+  protected onGridReady(params: GridReadyEvent): void {
+    console.log("Guest Component onGridReady()", params);
+    this.gridApi = params.api;
+
+    this.updateGuestTable();
+  }
+
+  private updateGuestTable(): void {
+    console.log("Updating guest table.")
+
+    const guests: Array<Guest> = this.guestService.getGuests();
+    console.log("Initializing guest grid with", guests);
+
+    this.gridApi.setGridOption('rowData', guests);
   }
 
 }

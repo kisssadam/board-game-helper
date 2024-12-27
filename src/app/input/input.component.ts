@@ -68,8 +68,8 @@ export class InputComponent {
 
     // // we expect the following columns to be present
     var columns: { [index: string]: [string, string] } = {
-      // columns[0]: name of the field in an Excel input.
-      // columns[1]: name of the field name in interface Player.
+      // columns[0]: name of the column in an Excel input.
+      // columns[1]: name of the field in interface Player.
       A: ['Name', 'name'],
       B: ['Preferred Game 1', 'preferredGame1'],
       C: ['Preferred Game 2', 'preferredGame2'],
@@ -107,20 +107,22 @@ export class InputComponent {
     console.log("Processing hosts sheet %o", hostsSheet);
 
     // // we expect the following columns to be present
-    var columns: { [index: string]: string } = {
-      A: 'Name',
-      B: 'Game',
-      C: 'Complexity',
-      D: 'Language',
-      E: '# of players',
-      F: 'any comments?',
-      G: 'Estimated Duration',
-      H: '# of table(s)',
-      I: 'Co-Host',
-      J: 'Location',
-      K: 'Owner',
-      L: 'Item Type',
-      M: 'Path',
+    var columns: { [index: string]: [string, string] } = {
+      // columns[0]: name of the column in an Excel input.
+      // columns[1]: name of the field in interface Host.
+      A: ['Name', 'name'],
+      B: ['Game', 'game'],
+      C: ['Complexity', 'complexity'],
+      D: ['Language', 'language'],
+      E: ['# of players', 'numberOfPlayers'],
+      F: ['any comments?', 'anyComments'],
+      G: ['Estimated Duration', 'estimatedDuration'],
+      H: ['# of table(s)', 'numberOfTables'],
+      I: ['Co-Host', 'coHost'],
+      J: ['Location', 'location'],
+      K: ['Owner', 'owner'],
+      L: ['Item Type', 'itemType'],
+      M: ['Path', 'path'],
     };
 
     // start at the 2nd row - the first row are the headers
@@ -133,7 +135,7 @@ export class InputComponent {
 
       Object.keys(columns).forEach((column: string) => {
         const data: any = hostsSheet[column + rowIndex]?.w;
-        hostRow[columns[column]] = data ? data : "";
+        hostRow[columns[column][1]] = data ? data : "";
       });
       console.log("Processing host %o", hostRow);
 
@@ -150,17 +152,19 @@ export class InputComponent {
     console.log("Processing guests sheet %o", guestsSheet);
 
     // // we expect the following columns to be present
-    var columns: { [index: string]: string } = {
-      A: 'Name',
-      B: 'Preferred Game 1',
-      C: 'Preferred Game 2',
-      D: 'Preferred Game 3',
-      E: 'Play With',
-      F: 'Bring guest?',
-      G: 'Guest Name',
-      H: 'Any comments?',
-      I: 'Item Type',
-      J: 'Path',
+    var columns: { [index: string]: [string, string] } = {
+      // columns[0]: name of the column in an Excel input.
+      // columns[1]: name of the field in interface Guest.
+      A: ['Name', 'name'],
+      B: ['Preferred Game 1', 'preferredGame1'],
+      C: ['Preferred Game 2', 'preferredGame2'],
+      D: ['Preferred Game 3', 'preferredGame3'],
+      E: ['Play With', 'playWith'],
+      F: ['Bring guest?', 'bringGuest'],
+      G: ['Guest Name', 'guestName'],
+      H: ['Any comments?', 'anyComments'],
+      I: ['Item Type', 'itemType'],
+      J: ['Path', 'path'],
     };
 
     // start at the 2nd row - the first row are the headers
@@ -173,7 +177,7 @@ export class InputComponent {
 
       Object.keys(columns).forEach((column: string) => {
         const data: any = guestsSheet[column + rowIndex]?.w;
-        guestRow[columns[column]] = data ? data : "";
+        guestRow[columns[column][1]] = data ? data : "";
       });
       console.log("Processing guest %o", guestRow);
 

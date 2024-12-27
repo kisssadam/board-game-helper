@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
-import {GridOptions} from "ag-grid-community";
+import {Component, OnInit} from '@angular/core';
+import {GridApi, GridOptions, GridReadyEvent} from "ag-grid-community";
 import {Host} from "./host";
 import {AgGridAngular} from "ag-grid-angular";
+import {HostService} from "./host.service";
 
 @Component({
   selector: 'app-host',
@@ -12,7 +13,7 @@ import {AgGridAngular} from "ag-grid-angular";
   templateUrl: './host.component.html',
   styleUrl: './host.component.scss'
 })
-export class HostComponent {
+export class HostComponent implements OnInit {
 
   gridOptions: GridOptions<Host> = {
     // Row Data: The data to be displayed.
@@ -54,6 +55,33 @@ export class HostComponent {
     autoSizeStrategy: {
       type: 'fitGridWidth'
     },
+  }
+
+  private gridApi!: GridApi;
+
+  constructor(
+    private hostService: HostService
+  ) {
+  }
+
+  ngOnInit(): void {
+    console.log("Host Component ngOnInit()")
+  }
+
+  protected onGridReady(params: GridReadyEvent): void {
+    console.log("Host Component onGridReady()", params);
+    this.gridApi = params.api;
+
+    this.updateHostTable();
+  }
+
+  private updateHostTable(): void {
+    console.log("Updating host table.")
+
+    const hosts: Array<Host> = this.hostService.getHosts();
+    console.log("Initializing host grid with", hosts);
+
+    this.gridApi.setGridOption('rowData', hosts);
   }
 
 }
