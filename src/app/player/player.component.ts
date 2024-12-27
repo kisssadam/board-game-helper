@@ -69,8 +69,10 @@ export class PlayerComponent implements OnInit {
     const players: Array<Player> = this.playerService.getPlayers();
     console.log("Initializing players grid with", players);
 
+    const newRowData: Array<Player> = [];
+
     for (const player of players) {
-      const playerRowData = {
+      newRowData.push({
         name: player.name,
         preferredGame1: player.preferredGame1,
         preferredGame2: player.preferredGame2,
@@ -81,12 +83,11 @@ export class PlayerComponent implements OnInit {
         anyComments: player.anyComments,
         itemType: player.itemType,
         path: player.path
-      } as Player
-
-      const currentRowData: Player[] | null | undefined = this.gridOptions.rowData;
-      const newRowData: Player[] = (currentRowData) ? [...currentRowData, playerRowData] : [playerRowData];
-      this.gridApi.setGridOption('rowData', newRowData);
+      } as Player);
     }
+
+    this.gridApi.setGridOption('rowData', newRowData);
+    console.log(newRowData);
   }
 
 }
