@@ -67,31 +67,20 @@ export class InputComponent {
     console.log("Processing players sheet %o", playersSheet);
 
     // // we expect the following columns to be present
-    var columns: { [index: string]: string } = {
-      A: 'Name',
-      B: 'Preferred Game 1',
-      C: 'Preferred Game 2',
-      D: 'Preferred Game 3',
-      E: 'Play With',
-      F: 'Bring guest?',
-      G: 'Guest Name',
-      H: 'Any comments?',
-      I: 'Item Type',
-      J: 'Path',
+    var columns: { [index: string]: [string, string] } = {
+      // columns[0]: name of the field in an Excel input.
+      // columns[1]: name of the field name in interface Player.
+      A: ['Name', 'name'],
+      B: ['Preferred Game 1', 'preferredGame1'],
+      C: ['Preferred Game 2', 'preferredGame2'],
+      D: ['Preferred Game 3', 'preferredGame3'],
+      E: ['Play With', 'playWith'],
+      F: ['Bring guest?', 'bringGuest'],
+      G: ['Guest Name', 'guestName'],
+      H: ['Any comments?', 'anyComments'],
+      I: ['Item Type', 'itemType'],
+      J: ['Path', 'path'],
     };
-
-    var columnMapToPlayerInterfaceFields: { [index: string]: string } = {
-      'Name': 'name',
-      'Preferred Game 1': 'preferredGame1',
-      'Preferred Game 2': 'preferredGame2',
-      'Preferred Game 3': 'preferredGame3',
-      'Play With': 'playWith',
-      'Bring guest?': 'bringGuest',
-      'Guest Name': 'guestName',
-      'Any comments?': 'anyComments',
-      'Item Type': 'itemType',
-      'Path': 'path'
-    }
 
     // start at the 2nd row - the first row are the headers
     var rowIndex = 2;
@@ -103,7 +92,7 @@ export class InputComponent {
 
       Object.keys(columns).forEach((column: string) => {
         const data: any = playersSheet[column + rowIndex]?.w
-        playerRow[columnMapToPlayerInterfaceFields[columns[column]]] = data ? data : "";
+        playerRow[columns[column][1]] = data ? data : "";
       });
       console.log("Processing player %o", playerRow);
 
